@@ -3,7 +3,7 @@
 import http.server
 import socketserver
 import re
-import configparser
+import configuration
 import os
 import mimetypes
 import json
@@ -29,13 +29,7 @@ class Singleton(type):
 
 class SeriousBackend(metaclass=Singleton):
     def __init__(self):
-        if not os.path.isfile('settings.cfg'):
-            logging.critical('settings.cfg not found')
-            sys.exit(1)
-
-        self._cfg = configparser.ConfigParser()
-        self._cfg.read('settings.cfg')
-
+        self._cfg = configuration.configuration()
         self.sxm = sirius.Sirius()
         self.templates = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'), autoescape=True)
 
