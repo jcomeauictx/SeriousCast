@@ -26,12 +26,16 @@ Flask is not required to run the SHOUTcast server.
 
 ## Setup
 
+SeriousCast is now self-configurable from your `$HOME/.netrc`, `/etc/hosts`, 
+and `/etc/services` files. For details see the [configuration.py](blob/master/configuration.py) docstring.
+
+## Alternative (old) setup
 Make a copy of settings-example.cfg named settings.cfg.
 Replace the `username` and `password` fields with your SiriusXM credentials.
 The `hostname` field should be set to the publicly accessible hostname (or IP
 address) for your server.
 
-After editing the configuration file, you should be able to run `server.py`
+After setting up the configuration, you should be able to run `server.py`
 to start the service. Navigate to the configured port (default 30000) in a web
 browser to get a list of available channels. Each channel has a "Stream" option,
 which plays in your browser window, and a "Playlist" option, which downloads
