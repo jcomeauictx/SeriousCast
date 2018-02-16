@@ -6,14 +6,17 @@ Default settings.cfg uses system files and doesn't require any changes.
 
 To make use of this, you must:
 
-    * edit /etc/services and make an entry for seriouscast
-      use port 30000 or any other of your choosing
+    * edit /etc/services and make entries for seriouscast
+      use port 30000 or any other of your choosing:
+          + `seriouscast 30000/tcp`
+          + `seriouscast 30000/udp`
     * find or set your hostname in /etc/hostname (on Debian and similar)
     * add an entry in your /etc/hosts for your hostname if it doesn't yet
       exist. `0.0.0.0' is always safe to use for the IP address, as it never
       changes, assuming you want the server to be available to all.
+          + `0.0.0.0 myhostname`
     * add an entry in $HOME/.netrc for your hostname:
-      machine MYHOSTNAME:seriouscast login MYUSERNAME password MYPASSWORD
+      `machine MYHOSTNAME:seriouscast login MYUSERNAME password MYPASSWORD`
       (the ALLCAPS words are what must be replaced with their real values)
 
 Otherwise overwrite settings.cfg with the contents of example_settings.cfg
@@ -29,12 +32,12 @@ def configuration(filename='settings.cfg', hostname='localhost', port='30000'):
     config = configparser.ConfigParser()
     load(config, filename)
     hostname = config.get('SeriousCast', 'hostname')
-    if hostname = '(from socket.gethostname())':
+    if hostname == '(from socket.gethostname())':
         hostname = socket.gethostname()
         config.set('SeriousCast', 'hostname', hostname)
     netrc_lookup = '%s:seriouscast' % hostname
     port = config.get('SeriousCast', 'port')
-    if port == '(from /etc/services'):
+    if port == '(from /etc/services)':
         port = socket.getservbyname('seriouscast')
         config.set('SeriousCast', 'port', port)
     username = config.get('SeriousCast', 'username')
