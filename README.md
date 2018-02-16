@@ -27,7 +27,7 @@ Flask is not required to run the SHOUTcast server.
 ## Setup
 
 SeriousCast is now self-configurable from your `$HOME/.netrc`, `/etc/hosts`, 
-and `/etc/services` files. For details see the [configuration.py](blob/master/configuration.py) docstring.
+and `/etc/services` files. For details see the [configuration.py](configuration.py) docstring.
 
 ## Alternative (old) setup
 Make a copy of settings-example.cfg named settings.cfg.
