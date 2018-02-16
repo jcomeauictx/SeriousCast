@@ -22,7 +22,10 @@ To make use of this, you must:
 Otherwise overwrite settings.cfg with the contents of example_settings.cfg
 and edit as necessary.
 '''
-import socket, netrc
+import os
+import socket
+import netrc
+import configparser
 
 def configuration(filename='settings.cfg', hostname='localhost', port='30000'):
     '''
@@ -38,7 +41,7 @@ def configuration(filename='settings.cfg', hostname='localhost', port='30000'):
     netrc_lookup = '%s:seriouscast' % hostname
     port = config.get('SeriousCast', 'port')
     if port == '(from /etc/services)':
-        port = socket.getservbyname('seriouscast')
+        port = str(socket.getservbyname('seriouscast'))
         config.set('SeriousCast', 'port', port)
     username = config.get('SeriousCast', 'username')
     if username == '(from .netrc)':
@@ -51,6 +54,7 @@ def configuration(filename='settings.cfg', hostname='localhost', port='30000'):
             authenticators = netrc.netrc()
         password = authenticators.authenticators(netrc_lookup)[2]
         config.set('SeriousCast', 'password', password)
+    return config
 
 def load(config, filename):
     '''

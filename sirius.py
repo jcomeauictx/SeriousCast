@@ -101,8 +101,10 @@ class Sirius():
         self.token_cache = {}
 
         player_page = requests.get(self.BASE_URL).text
-        config_url = re.search("flashvars.configURL = '(.+?)'", player_page).group(1)
-        self.config = ET.fromstring(requests.get(config_url).text)
+        config_url = re.search("flashvars.configURL = '(.+?)'", player_page)
+        if config_url is None:
+            raise ValueError('Could not find flashvars.configURL at %s' % self.BASE_URL)
+        self.config = ET.fromstring(requests.get(config_url.group(1)).text)
 
         lineup_url = self.config.findall("./consumerConfig/config[@name='ChannelLineUpBaseUrl']")[0].attrib['value']
         lineup = json.loads(requests.get(lineup_url + '/en-us/json/lineup/200/client/ump').text)
