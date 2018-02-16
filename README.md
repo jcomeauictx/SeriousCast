@@ -31,10 +31,13 @@ SeriousCast is now self-configurable from your `$HOME/.netrc`, `/etc/hosts`,
 and `/etc/services` files. For details see the [configuration.py](configuration.py) docstring.
 
 ## Alternative (old) setup
+
 Make a copy of settings-example.cfg named settings.cfg.
 Replace the `username` and `password` fields with your SiriusXM credentials.
 The `hostname` field should be set to the publicly accessible hostname (or IP
 address) for your server.
+
+## Running the server
 
 After setting up the configuration, you should be able to run `server.py`
 to start the service. Navigate to the configured port (default 30000) in a web
